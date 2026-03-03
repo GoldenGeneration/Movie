@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDebounce } from "react-use";
-import Search from "./components/Searcj";
+import Search from "./components/Search";
 import Spinner from "./components/Spinner";
 import MovieCard from "./components/MovieCar";
 
@@ -64,12 +64,12 @@ function App() {
           <header>
             <img src="./hero.png" alt="Hero Banner" />
             <h1>
-              Find your <span className="text-gradient">Movies</span> you Enjoy
+              Find the <span className="text-gradient">Movies</span> you Enjoy
             </h1>
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </header>
           <section className="all-movies">
-            <h2 className="mt-20">Trending movies</h2>
+            <h2 className="mt-20">Popular movies</h2>
             {isLoading ? (
               <p>
                 <Spinner />
