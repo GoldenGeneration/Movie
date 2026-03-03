@@ -9,7 +9,7 @@ function Search({ searchTerm, setSearchTerm }) {
 
       <input
         type="text"
-        placeholder="Search your choice"
+        placeholder="Search your movie without restriction"
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);
