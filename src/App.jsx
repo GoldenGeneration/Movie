@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDebounce } from "react-use";
 import Search from "./components/Searcj";
 import Spinner from "./components/Spinner";
 import MovieCard from "./components/MovieCar";
@@ -20,6 +21,9 @@ function App() {
   const [errorMsg, setErrMsg] = useState("");
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [debouncedSearchTerm, setDebounce] = useState("");
+
+  useDebounce(() => setDebounce(searchTerm), 500, [searchTerm]);
 
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
@@ -51,36 +55,36 @@ function App() {
   };
 
   useEffect(() => {
-    fetchMovies(searchTerm);
-  }, [searchTerm]);
+    fetchMovies(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
   return (
     <main>
-      <div className="pattern" />
-
-      <div className="wrapper">
-        <header>
-          <img src="./hero.png" alt="Hero Banner" />
-          <h1>
-            Find your <span className="text-gradient">Movies</span> you Enjoy
-          </h1>
-          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        </header>
-        <section className="all-movies">
-          <h2 className="mt-20">Trending movies</h2>
-          {isLoading ? (
-            <p>
-              <Spinner />
-            </p>
-          ) : errorMsg ? (
-            <p className="text-red-500">{errorMsg} </p>
-          ) : (
-            <ul>
-              {movieList.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
-            </ul>
-          )}
-        </section>
+      <div className="pattern">
+        <div className="wrapper">
+          <header>
+            <img src="./hero.png" alt="Hero Banner" />
+            <h1>
+              Find your <span className="text-gradient">Movies</span> you Enjoy
+            </h1>
+            <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          </header>
+          <section className="all-movies">
+            <h2 className="mt-20">Trending movies</h2>
+            {isLoading ? (
+              <p>
+                <Spinner />
+              </p>
+            ) : errorMsg ? (
+              <p className="text-red-500">{errorMsg} </p>
+            ) : (
+              <ul>
+                {movieList.map((movie) => (
+                  <MovieCard key={movie.id} movie={movie} />
+                ))}
+              </ul>
+            )}
+          </section>
+        </div>
       </div>
     </main>
   );
