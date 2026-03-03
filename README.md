@@ -1,3 +1,5 @@
+You need to get TMDB api_key by signing up for personal developer account.
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
